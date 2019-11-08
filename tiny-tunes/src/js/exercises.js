@@ -1,13 +1,17 @@
 // Exercise 01
 
 function ex01 () {
+  // createTextNode = skapar en string
   const myText = document.createTextNode('Hello World!')
+  // querySelector = returnerar ett element
   const pTag = document.querySelector('#step01_hello')
 
+  // appendChild = tilldelar ett element "något". skapar ett "child"
   pTag.appendChild(myText)
 }
 
 function ex02 () {
+  // createElement = skapar ett element
   const h2Tag = document.createElement('h2')
   const subHead = document.createTextNode('This is a sub headline')
   const h2subHead = document.querySelector('#step02')
@@ -23,11 +27,23 @@ function ex03 () {
   const parent = document.querySelector('#step03')
 
   h2Tag.appendChild(subHead)
+
+  // insertBefore = trycker in något framför ett element
   parent.insertBefore(h2Tag, reference)
+
+  // Test parentElement
+  // querySelectorAll = väljer alla av samma sorts element
+  // const h2tag = document.querySelectorAll('h2')[4]
+  // console.log(h2tag.parentElement)
+}
+
+function ex04 () {
+  document.querySelectorAll('#step04 h2')[0].style.color = 'red'
 }
 
 export {
   ex01,
   ex02,
-  ex03
+  ex03,
+  ex04
 }
