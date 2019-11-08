@@ -65,6 +65,14 @@ function ex06 () {
   ulReference.appendChild(fragment)
 }
 
+function ex07 () {
+  const template = document.getElementById('step07-template')
+
+  for (let i = 0; i < 5; i++) {
+
+  }
+}
+
 export {
   ex01,
   ex02,
