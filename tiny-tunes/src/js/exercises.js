@@ -41,9 +41,23 @@ function ex04 () {
   document.querySelectorAll('#step04 h2')[0].style.color = 'red'
 }
 
+function ex05 () {
+  const div = document.querySelector('#step05')
+  const button = document.querySelector('.greybox')
+
+  button.addEventListener('click', function (event) {
+    const text = document.createTextNode('You clicked!')
+    const pTag = document.createElement('p')
+    pTag.appendChild(text)
+    div.appendChild(pTag)
+    event.preventDefault()
+  })
+}
+
 export {
   ex01,
   ex02,
   ex03,
-  ex04
+  ex04,
+  ex05
 }
