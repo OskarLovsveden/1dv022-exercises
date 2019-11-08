@@ -54,10 +54,22 @@ function ex05 () {
   })
 }
 
+function ex06 () {
+  const fragment = document.createDocumentFragment()
+  const ulReference = document.getElementById('list06')
+
+  for (let i = 0; i < 10; i++) {
+    const li = document.createElement('li')
+    fragment.appendChild(li)
+  }
+  ulReference.appendChild(fragment)
+}
+
 export {
   ex01,
   ex02,
   ex03,
   ex04,
-  ex05
+  ex05,
+  ex06
 }
