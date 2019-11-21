@@ -5,7 +5,9 @@ import {
   ex04,
   ex05,
   ex06,
-  ex07
+  ex07,
+  ex08,
+  ex09
 } from './exercises.js'
 
 ex01()
@@ -15,3 +17,5 @@ ex04()
 ex05()
 ex06()
 ex07()
+ex08()
+ex09()

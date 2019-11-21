@@ -79,6 +79,21 @@ function ex07 () {
   }
 }
 
+function ex08 () {
+  const button = document.querySelector('#todoListform button')
+  button.addEventListener('click', event => {
+    const value = button.previousElementSibling.value
+
+    if (value.length > 0) {
+      const li = document.createElement('li')
+      li.innerText = value
+      document.querySelector('#todoList ul').appendChild(li)
+    }
+  })
+}
+
+function ex09 () {}
+
 export {
   ex01,
   ex02,
@@ -86,5 +101,7 @@ export {
   ex04,
   ex05,
   ex06,
-  ex07
+  ex07,
+  ex08,
+  ex09
 }
