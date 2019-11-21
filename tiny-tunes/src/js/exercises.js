@@ -66,10 +66,16 @@ function ex06 () {
 }
 
 function ex07 () {
-  const template = document.getElementById('step07-template')
+  const template = document.querySelector('#step07-template')
+  const list07 = document.querySelector('#list07')
+  let liTemplate
 
   for (let i = 0; i < 5; i++) {
-
+    liTemplate = document.importNode(template.content, true)
+    const a = liTemplate.querySelector('a')
+    a.setAttribute('href', 'https://www.youtube.com')
+    a.innerText = `This is link number ${i + 1}`
+    list07.appendChild(liTemplate)
   }
 }
 
@@ -79,5 +85,6 @@ export {
   ex03,
   ex04,
   ex05,
-  ex06
+  ex06,
+  ex07
 }
