@@ -92,7 +92,23 @@ function ex08 () {
   })
 }
 
-function ex09 () {}
+function ex09 () {
+  const username = document.querySelectorAll('#textboxes09 input')[0]
+  const confirm = document.querySelectorAll('#textboxes09 input')[1]
+  const validation = document.querySelector('#step09 .validation')
+
+  document.querySelector('#textboxes09').addEventListener('blur', event => {
+    if (username.value.length > 0 && confirm.value.length > 0) {
+      if (username.value === confirm.value) {
+        validation.innerText = 'The username is OK!'
+      } else {
+        validation.innerText = 'The usernames does not match.'
+      }
+    } else {
+      validation.innerText = ''
+    }
+  }, true)
+}
 
 export {
   ex01,
