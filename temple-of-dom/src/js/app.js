@@ -7,24 +7,15 @@ const nodes = {
   textnodes: 0
 }
 
-function countNodes () {
+function countNodes (passedHTMLcollection) {
+  for (let i = 0; i < passedHTMLcollection.length; i++) {
+    if (passedHTMLcollection[i].childNodes) {
+      countNodes(passedHTMLcollection[i].childNodes)
+    }
 
+    findNodeType(passedHTMLcollection[i])
+  }
 }
-
-// document.childNodes.forEach(node => {
-//   console.log(node)
-//   console.log('NIVÅ1')
-
-//   RECURSION MAYBE YES?
-//   node.childNodes.forEach(node => {
-//     console.log(node)
-//     console.log('NIVÅ2')
-//     node.childNodes.forEach(node => {
-//       console.log(node)
-//       console.log('NIVÅ3')
-//     })
-//   })
-// })
 
 function findNodeType (currentNode) {
   if (currentNode.nodeType === 1) {
