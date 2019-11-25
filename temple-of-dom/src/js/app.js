@@ -1,14 +1,21 @@
-// your code here
+const startingpoint = window.document.childNodes
 
-let elementNodes = 0
-let attributeNodes = 0
-let commentNodes = 0
-let textNodes = 0
+const nodes = {
+  elements: 0,
+  attributes: 0,
+  comments: 0,
+  textnodes: 0
+}
 
-document.childNodes.forEach(node => {
-  console.log(node)
-  console.log('NIVÅ1')
-  // RECURSION MAYBE YES?
+function countNodes () {
+
+}
+
+// document.childNodes.forEach(node => {
+//   console.log(node)
+//   console.log('NIVÅ1')
+
+//   RECURSION MAYBE YES?
 //   node.childNodes.forEach(node => {
 //     console.log(node)
 //     console.log('NIVÅ2')
@@ -17,7 +24,7 @@ document.childNodes.forEach(node => {
 //       console.log('NIVÅ3')
 //     })
 //   })
-})
+// })
 
 function findNodeType (currentNode) {
   if (currentNode.nodeType === 1) {
