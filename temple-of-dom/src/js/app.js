@@ -19,13 +19,21 @@ function countNodes (passedHTMLcollection) {
 
 function findNodeType (currentNode) {
   if (currentNode.nodeType === 1) {
-    elementNodes += 1
-  } else if (currentNode.nodeType === 3) {
-    textNodes += 1
-  } else if (currentNode.nodeType === 8) {
-    commentNodes += 1
-  } else if (currentNode.nodeType === 2) {
-    attributeNodes += 1
+    if (currentNode.tagName) {
+      nodes.elements += 1
+    }
+
+    if (currentNode.attributes && currentNode.attributes.length > 0) {
+      nodes.attributes += currentNode.attributes.length
+    }
+  }
+
+  if (currentNode.nodeType === 3) {
+    nodes.textnodes += 1
+  }
+
+  if (currentNode.nodeType === 8) {
+    nodes.comments += 1
   }
 }
 
