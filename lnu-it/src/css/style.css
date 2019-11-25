@@ -1,0 +1,11 @@
+html {
+    background-color: goldenrod;
+}
+
+a,
+a:visited,
+a:hover,
+a:active {
+    background-color: yellow;
+    color: black;
+}
