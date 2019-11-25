@@ -39,10 +39,15 @@ function findNodeType (currentNode) {
 
 function createRepresentation () {
   const template = document.querySelector('#resultTemplate')
-  const clone = template.content.cloneNode(true)
-  // Tilldela text
-  document.querySelector('body').appendChild(clone)
+
+  Object.getOwnPropertyNames(nodes).forEach(key => {
+    const clone = template.content.cloneNode(true)
+    clone.querySelector('h3').innerHTML = `Number of ${key}`
+    clone.querySelector('p').innerHTML = `${nodes[key]}`
+
+    document.querySelector('body').appendChild(clone)
+  })
 }
 
-// if node has children, go into that node...
-// else check Nodetype
+countNodes(startingpoint)
+createRepresentation()
