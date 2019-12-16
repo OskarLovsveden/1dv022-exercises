@@ -1,5 +1,5 @@
-const template = document.createElement('template')
-template.innerHTML = `
+const divTemplate = document.createElement('template')
+divTemplate.innerHTML = `
 <style>
   #tileDiv img {
     width: 15%;
@@ -7,6 +7,11 @@ template.innerHTML = `
 </style>
 <div id="tileDiv">
 </div>
+`
+
+const imgTemplate = document.createElement('template')
+imgTemplate.innerHTML = `
+<img src="image/0.png" alt="A memory brick" />
 `
 
 /**
@@ -30,23 +35,37 @@ export class MemoryGame extends window.HTMLElement {
       mode: 'open'
     })
 
-    this.shadowRoot.appendChild(template.content.cloneNode(true))
+    this.shadowRoot.appendChild(divTemplate.content.cloneNode(true))
+
+    this.rows = rows
+    this.cols = cols
     this._tileDiv = this.shadowRoot.querySelector('#tileDiv')
 
-    for (let i = 0; i < rows * cols; i++) {
-      const img = document.createElement('img')
-      img.setAttribute('src', 'image/0.png')
+    for (let i = 0; i < this.rows * this.cols; i++) {
+      const img = imgTemplate.content.cloneNode(true)
       this._tileDiv.appendChild(img)
 
-      if ((i + 1) % cols === 0) {
+      if ((i + 1) % this.cols === 0) {
         this._tileDiv.appendChild(document.createElement('br'))
       }
     }
 
     this.shadowRoot.appendChild(this._tileDiv)
+  }
 
-    this.rows = rows
-    this.cols = cols
+  connectedCallback () {
+    this.getPictureArray()
+  }
+
+  getPictureArray () {
+    const arr = []
+
+    for (let i = 1; i <= (this.rows * this.cols) / 2; i++) {
+      arr.push(i)
+      arr.push(i)
+    }
+
+    this.fisherYatesShuffle(arr)
   }
 
   fisherYatesShuffle (array) {
