@@ -11,7 +11,7 @@ divTemplate.innerHTML = `
 
 const imgTemplate = document.createElement('template')
 imgTemplate.innerHTML = `
-<img src="image/0.png" alt="A memory brick" />
+<a href="#"><img src="image/0.png" alt="A memory tile" /></a>
 `
 
 /**
@@ -48,9 +48,8 @@ export class MemoryGame extends window.HTMLElement {
 
       const currentImg = this._tileDiv.getElementsByTagName('img')[index]
 
-      currentImg.addEventListener('click', () => {
-        console.log(tile)
-        this.turnBrick(tile, index, currentImg)
+      currentImg.addEventListener('click', (event) => {
+        this.turnTile(tile, index, event.target)
       })
 
       if ((index + 1) % this.cols === 0) {
@@ -59,8 +58,8 @@ export class MemoryGame extends window.HTMLElement {
     })
   }
 
-  turnBrick (tile, index, img) {
-
+  turnTile (tile, index, img) {
+    img.src = 'image/' + tile + '.png'
   }
 
   getPictureArray () {
