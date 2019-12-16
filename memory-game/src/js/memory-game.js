@@ -48,6 +48,20 @@ export class MemoryGame extends window.HTMLElement {
     this.rows = rows
     this.cols = cols
   }
+
+  fisherYatesShuffle (array) {
+    let m = array.length
+
+    while (m) {
+      const i = Math.floor(Math.random() * m--)
+
+      const t = array[m]
+      array[m] = array[i]
+      array[i] = t
+    }
+
+    return array
+  }
 }
 
 window.customElements.define('memory-game', MemoryGame)
