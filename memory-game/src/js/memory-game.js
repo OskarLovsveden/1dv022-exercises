@@ -39,22 +39,28 @@ export class MemoryGame extends window.HTMLElement {
 
     this.rows = rows
     this.cols = cols
+    this._tiles = this.getPictureArray()
     this._tileDiv = this.shadowRoot.querySelector('#tileDiv')
 
-    for (let i = 0; i < this.rows * this.cols; i++) {
+    this._tiles.forEach((tile, index) => {
       const img = imgTemplate.content.cloneNode(true)
       this._tileDiv.appendChild(img)
 
-      if ((i + 1) % this.cols === 0) {
+      const currentImg = this._tileDiv.getElementsByTagName('img')[index]
+
+      currentImg.addEventListener('click', () => {
+        console.log(tile)
+        this.turnBrick(tile, index, currentImg)
+      })
+
+      if ((index + 1) % this.cols === 0) {
         this._tileDiv.appendChild(document.createElement('br'))
       }
-    }
-
-    this.shadowRoot.appendChild(this._tileDiv)
+    })
   }
 
-  connectedCallback () {
-    this.getPictureArray()
+  turnBrick (tile, index, img) {
+
   }
 
   getPictureArray () {
@@ -66,6 +72,7 @@ export class MemoryGame extends window.HTMLElement {
     }
 
     this.fisherYatesShuffle(arr)
+    return arr
   }
 
   fisherYatesShuffle (array) {
