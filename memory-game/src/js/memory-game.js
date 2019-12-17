@@ -41,6 +41,9 @@ export class MemoryGame extends window.HTMLElement {
     this.cols = cols
     this._tiles = this._getPictureArray()
     this._tileDiv = this.shadowRoot.querySelector('#tileDiv')
+    this._turn1 = null
+    this._turn2 = null
+    this._lastTile = null
 
     this._tiles.forEach((tile, index) => {
       const img = imgTemplate.content.cloneNode(true)
@@ -83,6 +86,7 @@ export class MemoryGame extends window.HTMLElement {
           case 'Enter' :
             // HANDLE ENTER
             this._turnTile(tile, index, event.target)
+            console.log(event.target)
             break
         }
         // Consume the event so it doesn't get handled twice
@@ -131,10 +135,36 @@ export class MemoryGame extends window.HTMLElement {
   }
 
   _turnTile (tile, index, img) {
+    let imgReference = null
+
     if (img.nodeName === 'IMG') {
       img.src = 'image/' + tile + '.png'
+      imgReference = img
     } else {
       img.firstElementChild.src = 'image/' + tile + '.png'
+      imgReference = img.firstElementChild
+    }
+
+    if (!this._turn1) {
+      console.log('round1')
+      this._turn1 = imgReference
+      this._lastTile = tile
+    } else {
+      console.log('round2')
+      this._turn2 = imgReference
+      if (tile === this._lastTile) {
+        this._turn1 = null
+        this._turn2 = null
+      } else {
+        setTimeout(() => {
+          console.log('reset')
+          this._turn1.src = 'image/0.png'
+          this._turn2.src = 'image/0.png'
+
+          this._turn1 = null
+          this._turn2 = null
+        }, 1000)
+      }
     }
   }
 
