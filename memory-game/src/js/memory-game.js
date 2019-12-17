@@ -63,13 +63,12 @@ export class MemoryGame extends window.HTMLElement {
           case 'KeyS':
           case 'ArrowDown':
             // HANDLE DOWN
-            this._arrowDown(index, listOfImg)
-            console.log('down')
+            this._arrowDown(index)
             break
           case 'KeyW':
           case 'ArrowUp':
             // HANDLE UP
-            console.log('up')
+            this._arrowUp(index)
             break
           case 'KeyA':
           case 'ArrowLeft':
@@ -100,6 +99,13 @@ export class MemoryGame extends window.HTMLElement {
   _arrowDown (index) {
     const nextTile = index + this.cols
     if (nextTile <= 15) {
+      this._tileDiv.getElementsByTagName('a')[nextTile].focus()
+    }
+  }
+
+  _arrowUp (index) {
+    const nextTile = index - this.cols
+    if (nextTile >= 0) {
       this._tileDiv.getElementsByTagName('a')[nextTile].focus()
     }
   }
