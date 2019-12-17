@@ -1,5 +1,5 @@
-const divTemplate = document.createElement('template')
-divTemplate.innerHTML = `
+const mainTemplate = document.createElement('template')
+mainTemplate.innerHTML = `
 <style>
   #tileDiv img {
     width: 15%;
@@ -35,22 +35,61 @@ export class MemoryGame extends window.HTMLElement {
       mode: 'open'
     })
 
-    this.shadowRoot.appendChild(divTemplate.content.cloneNode(true))
+    this.shadowRoot.appendChild(mainTemplate.content.cloneNode(true))
 
     this.rows = rows
     this.cols = cols
-    this._tiles = this.getPictureArray()
+    this._tiles = this._getPictureArray()
     this._tileDiv = this.shadowRoot.querySelector('#tileDiv')
 
     this._tiles.forEach((tile, index) => {
       const img = imgTemplate.content.cloneNode(true)
       this._tileDiv.appendChild(img)
 
-      const currentImg = this._tileDiv.getElementsByTagName('img')[index]
+      const listOfImg = this._tileDiv.getElementsByTagName('img')
+      const currentImg = listOfImg[index]
 
-      currentImg.addEventListener('click', (event) => {
-        this.turnTile(tile, index, event.target)
+      currentImg.addEventListener('click', event => {
+        console.log(event.target)
+        this._turnTile(tile, index, event.target)
       })
+
+      currentImg.parentNode.addEventListener('keydown', (event) => {
+        if (event.defaultPrevented) {
+          return // Do nothing if event already handled
+        }
+
+        switch (event.code) {
+          case 'KeyS':
+          case 'ArrowDown':
+            // HANDLE DOWN
+            this._arrowDown(index, listOfImg)
+            console.log('down')
+            break
+          case 'KeyW':
+          case 'ArrowUp':
+            // HANDLE UP
+            console.log('up')
+            break
+          case 'KeyA':
+          case 'ArrowLeft':
+            // HANDLE LEFT
+            console.log('left')
+            break
+          case 'KeyD':
+          case 'ArrowRight':
+            // HANDLE RIGHT
+            console.log('right')
+            break
+          case 'Enter' :
+            // HANDLE ENTER
+            this._turnTile(tile, index, event.target)
+            console.log(event.target)
+            break
+        }
+        // Consume the event so it doesn't get handled twice
+        event.preventDefault()
+      }, true)
 
       if ((index + 1) % this.cols === 0) {
         this._tileDiv.appendChild(document.createElement('br'))
@@ -58,11 +97,22 @@ export class MemoryGame extends window.HTMLElement {
     })
   }
 
-  turnTile (tile, index, img) {
-    img.src = 'image/' + tile + '.png'
+  _arrowDown (index) {
+    const nextTile = index + this.cols
+    if (nextTile <= 15) {
+      this._tileDiv.getElementsByTagName('a')[nextTile].focus()
+    }
   }
 
-  getPictureArray () {
+  _turnTile (tile, index, img) {
+    if (img.nodeName === 'IMG') {
+      img.src = 'image/' + tile + '.png'
+    } else {
+      img.firstElementChild.src = 'image/' + tile + '.png'
+    }
+  }
+
+  _getPictureArray () {
     const arr = []
 
     for (let i = 1; i <= (this.rows * this.cols) / 2; i++) {
