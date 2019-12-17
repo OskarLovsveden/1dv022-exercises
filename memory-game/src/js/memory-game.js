@@ -73,17 +73,16 @@ export class MemoryGame extends window.HTMLElement {
           case 'KeyA':
           case 'ArrowLeft':
             // HANDLE LEFT
-            console.log('left')
+            this._arrowLeft(index)
             break
           case 'KeyD':
           case 'ArrowRight':
             // HANDLE RIGHT
-            console.log('right')
+            this._arrowRight(index)
             break
           case 'Enter' :
             // HANDLE ENTER
             this._turnTile(tile, index, event.target)
-            console.log(event.target)
             break
         }
         // Consume the event so it doesn't get handled twice
@@ -94,11 +93,18 @@ export class MemoryGame extends window.HTMLElement {
         this._tileDiv.appendChild(document.createElement('br'))
       }
     })
+
+    this._tileLimit = this._tileDiv.getElementsByTagName('a').length - 1
+  }
+
+  connectedCallback () {
+    this._tileDiv.getElementsByTagName('a')[0].focus()
   }
 
   _arrowDown (index) {
     const nextTile = index + this.cols
-    if (nextTile <= 15) {
+
+    if (nextTile <= this._tileLimit) {
       this._tileDiv.getElementsByTagName('a')[nextTile].focus()
     }
   }
@@ -106,6 +112,20 @@ export class MemoryGame extends window.HTMLElement {
   _arrowUp (index) {
     const nextTile = index - this.cols
     if (nextTile >= 0) {
+      this._tileDiv.getElementsByTagName('a')[nextTile].focus()
+    }
+  }
+
+  _arrowLeft (index) {
+    const nextTile = index - 1
+    if (nextTile >= 0) {
+      this._tileDiv.getElementsByTagName('a')[nextTile].focus()
+    }
+  }
+
+  _arrowRight (index) {
+    const nextTile = index + 1
+    if (nextTile <= this._tileLimit) {
       this._tileDiv.getElementsByTagName('a')[nextTile].focus()
     }
   }
